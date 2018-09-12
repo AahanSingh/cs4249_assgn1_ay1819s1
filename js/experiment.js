@@ -112,6 +112,12 @@ function loadNextTrial(e){
 // Move to next trai and record events
 function nextTrial() {
 
+	if (currentTrial==0){
+		confirm('The next 4 trials are for your practice. Try to familiarize yourself with the menus.');
+	}
+	if (currentTrial==5){
+		 confirm('The experiment begins. Begin by using your '+trialsData[currentTrial]['Input Device']);
+		 }
 	if ( currentTrial==35 ){ 
 		confirm("Congratulaions. We are halfway through. Take a small break. Close this window to when you're ready. Also change your device to "+trialsData[currentTrial]['Input Device']);
 	}
