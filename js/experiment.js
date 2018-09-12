@@ -1,12 +1,25 @@
 'use strict';
 
 // Location of data files
-const trialsFile = "./data/experiments.csv"
+var trialsFile = "./data/"
 const menuL1File = "./data/menu_depth_1.csv"
 const menuL2File = "./data/menu_depth_2.csv"
 const menuL3File = "./data/menu_depth_3.csv"
 
 // Global variables
+var pid = 0;
+var age = 0;
+var gender = null;
+var country = null;
+var compexp = null;
+var lapexp = null;
+var markexp = null;
+var radexp = null;
+
+// add other variables for pre experiment questionnaire
+// add variables for post experiment questionnaire
+
+var num_help=0
 var menu;
 var trialsData = [];
 var numTrials = 0;
@@ -22,9 +35,10 @@ var tracker = new ExperimentTracker();
 var markingMenuSubscription = null;
 var radialMenuSvg = null;
 
-
-
-
+function more_click(){
+	num_help+=1
+	console.log('help='+num_help)
+}
 
 // Load CSV files from data and return text
 function getData(relativePath) {
@@ -37,7 +51,21 @@ function getData(relativePath) {
 
 // Loads the CSV data files on page load and store it to global variables
 function initExperiment() {
+	console.log('Started experiment')
+	var form_data = window.location.search.split('?')[1].split('&')
+	pid = form_data[0].split('=')[1]
+	age = form_data[1].split('=')[1]
+	gender = form_data[2].split('=')[1]
+	country = form_data[3].split('=')[1]
+	compexp = form_data[4].split('=')[1]
+	lapexp = form_data[5].split('=')[1]
+	markexp = form_data[6].split('=')[1]
+	radexp = form_data[7].split('=')[1]
 
+	trialsFile = trialsFile+pid+'.csv'
+	console.log('Participant='+pid)
+	console.log('filename='+trialsFile)
+	
 	// Get Trails
 	var data = getData(trialsFile);
 
@@ -45,10 +73,12 @@ function initExperiment() {
 	numTrials = records.length - 1;
 	for (var i = 1; i <= numTrials; i++) {
 		var cells = records[i].split(",");
-		var menuType = cells[0].trim();
-		var menuDepth = cells[1].trim();
-		var targetItem = cells[2].trim();
+		var inputDevice = cells[0].trim();
+		var menuType = cells[1].trim();
+		var menuDepth = cells[2].trim();
+		var targetItem = cells[3].trim();
 		trialsData[i] = {
+			'Input Device': inputDevice,
 			'Menu Type': menuType,
 			'Menu Depth': menuDepth,
 			'Target Item': targetItem
@@ -82,16 +112,20 @@ function loadNextTrial(e){
 // Move to next trai and record events
 function nextTrial() {
 
-	
+	if ( currentTrial==35 ){ 
+		confirm("Congratulaions. We are halfway through. Take a small break. Close this window to when you're ready. Also change your device to "+trialsData[currentTrial]['Input Device']);
+	}
 	if (currentTrial <= numTrials) {
 
 		var menuType = trialsData[currentTrial]['Menu Type'];
 		var menuDepth = trialsData[currentTrial]['Menu Depth'];
+		var inputDevice = trialsData[currentTrial]['Input Device'];
 		var targetItem = trialsData[currentTrial]['Target Item'];
 
 		document.getElementById("trialNumber").innerHTML = String(currentTrial) + "/" + String(numTrials);
 		document.getElementById("menuType").innerHTML = menuType;
 		document.getElementById("menuDepth").innerHTML = menuDepth;
+		document.getElementById("inputDevice").innerHTML = inputDevice;
 		document.getElementById("targetItem").innerHTML = targetItem;
 		document.getElementById("selectedItem").innerHTML = "&nbsp;";
 		// Set IV3 state over here
@@ -100,12 +134,21 @@ function nextTrial() {
 		tracker.trial = currentTrial;
 		tracker.menuType = menuType;
 		tracker.menuDepth = menuDepth;
+		tracker.inputDevice = inputDevice;
 		tracker.targetItem = targetItem;
+		tracker.age = age;
+		tracker.gender = gender;
+		tracker.pid = pid;
+		tracker.country = country;
+		tracker.compexp = compexp;
+		tracker.lapexp = lapexp;
+		tracker.help = num_help;
+		tracker.markexp = markexp;
+		tracker.radexp = radexp;
+		
 
 		if (menuType === "Marking") {
-				
 			initializeMarkingMenu();
-			
 			if(menuDepth == 1){
 				menu = MarkingMenu(markingMenuL1, document.getElementById('marking-menu-container'));
 			}
@@ -114,11 +157,8 @@ function nextTrial() {
 			}else if(menuDepth == 3){
 				menu = MarkingMenu(markingMenuL3, document.getElementById('marking-menu-container'));
 			}
-
 			markingMenuSubscription = menu.subscribe((selection) => markingMenuOnSelect(selection));
-
 		} else if (menuType === "Radial") {
-
 			initializeRadialMenu();			
 			if (menuDepth == 1){
 				menu = createRadialMenu(radialMenuL1);
@@ -128,8 +168,6 @@ function nextTrial() {
 			}else if(menuDepth == 3){
 				menu = createRadialMenu(radialMenuL3);
 			}
-
-
 		}
 
 		currentTrial++;
@@ -138,6 +176,7 @@ function nextTrial() {
 	    var nextButton = document.getElementById("nextButton");
 	    nextButton.innerHTML = "Done";
 		tracker.toCsv();
+		window.open('postexp.html')
 	}
 }
 

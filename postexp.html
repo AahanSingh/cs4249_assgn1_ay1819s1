@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Post Experiment</title>
+
+	<!-- Marking Menu Stylesheet -->
+   <link href="./css/external/marking-menu.css" rel="stylesheet">
+	<!-- Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Stint+Ultra+Condensed' rel='stylesheet' type='text/css'>
+	<!-- Experiment Stylesheet -->
+	<link href="./css/experiment.css" rel="stylesheet"> 
+
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
+</head>
+<body>
+
+<h1>Post Experiment Review</h1>
+
+<div class="container">
+  <h2>Questionnaire</h2>
+	<pre>
+Thank you for completing the experiment. On completion of this page there will be 2 files in your downloads. Please emaill them to 
+<strong>aahansingh@u.nus.edu</strong> with <strong>HCI Experiment</strong> as the subject.
+	
+Please fill out the following questionnaire to help us understand your experience and to obtain feedback from you.
+</pre>
+	<form>
+    <label>Marking Menu was easier to use in general.</label>
+     <select required id="q1" name="q1">
+      	<option value="Strongly Agree">Strongly Agree</option>
+      	<option value="Agree">Agree</option>
+		  	<option value="Neutral">Neutral</option>
+		  	<option value="Disagree">Disagree</option>
+		  	<option value="Strongly Disagree">Strongly Disagree</option>
+    </select><br>
+	<label>Radial Menu was easier to use in general.</label>
+     <select required id="q2" name="q2">
+      	<option value="Strongly Agree">Strongly Agree</option>
+      	<option value="Agree">Agree</option>
+		  	<option value="Neutral">Neutral</option>
+		  	<option value="Disagree">Disagree</option>
+		  	<option value="Strongly Disagree">Strongly Disagree</option>
+    </select><br>	
+		<label>Marking Menu was easier to use with the trackpad.</label>
+     <select required id="q3" name="q3">
+      	<option value="Strongly Agree">Strongly Agree</option>
+      	<option value="Agree">Agree</option>
+		  	<option value="Neutral">Neutral</option>
+		  	<option value="Disagree">Disagree</option>
+		  	<option value="Strongly Disagree">Strongly Disagree</option>
+    </select><br>
+		<label>Radial Menu was easier to use with the trackpad.</label>
+     <select required id="q4" name="q4">
+      	<option value="Strongly Agree">Strongly Agree</option>
+      	<option value="Agree">Agree</option>
+		  	<option value="Neutral">Neutral</option>
+		  	<option value="Disagree">Disagree</option>
+		  	<option value="Strongly Disagree">Strongly Disagree</option>
+    </select><br>
+		<label>Marking Menu was easier to use with the mouse.</label>
+     <select required id="q5" name="q5">
+      	<option value="Strongly Agree">Strongly Agree</option>
+      	<option value="Agree">Agree</option>
+		  	<option value="Neutral">Neutral</option>
+		  	<option value="Disagree">Disagree</option>
+		  	<option value="Strongly Disagree">Strongly Disagree</option>
+    </select><br>
+		<label>Radial Menu was easier to use with the mouse.</label>
+     <select required id="q6" name="q6">
+      	<option value="Strongly Agree">Strongly Agree</option>
+      	<option value="Agree">Agree</option>
+		  	<option value="Neutral">Neutral</option>
+		  	<option value="Disagree">Disagree</option>
+		  	<option value="Strongly Disagree">Strongly Disagree</option>
+    </select><br>
+		<label>Please list out the things you liked about the marking menu.</label>
+		<textarea id='q7' name='q7' value=''></textarea>
+		<label>Please list out the things you liked about the radial menu.</label>
+		<textarea id='q8' name='q8' value=''></textarea>
+		<label>Please list out areas where the menus could use some improvement.</label>
+		<textarea id='q9' name='q9' value=''></textarea>
+		<label>Please list out general difficulties faced while performing the experiment if any.</label>
+		<textarea id='q10' name='q10' value=''></textarea>
+		<label>If you have any other questions or feedback regarding the experiment please fill the box below.</label>
+		<textarea id='feedback' name='feedback' value=''></textarea>
+		
+		Please close this window manually after clicking submit.
+    <input type="submit" value="Submit" onclick="get_feedback()">
+  </form>
+</div>
+
+</body>
+	<script src="./js/experiment.js"></script>
+	<script>
+		function get_feedback(){
+			data = window.location.search.split('?')[1].split('&')
+			var text = ''
+			for (var i = 0; i < 11; i++) {
+				text = text+data[i]+'\n';
+			}
+			console.log(text)
+			var hiddenLink = document.createElement('a');
+			hiddenLink.href = 'data:text/txt;charset=utf-8,' + encodeURI(text);
+			hiddenLink.target = '_blank';
+			hiddenLink.download = 'post_questionnaire.txt';
+			document.body.appendChild(hiddenLink);
+			hiddenLink.click();
+		}
+	</script>
+</html>

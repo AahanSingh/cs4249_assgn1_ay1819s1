@@ -21,31 +21,34 @@
 	<!-- State Div -->
     <div class="row" id="state-container">
       <div class="cellstate">
-	<span class="label label-primary">Trial</span>
-	<span class="label label-default" id="trialNumber">&nbsp;</span>
+			<span class="label label-primary">Trial</span>
+			<span class="label label-default" id="trialNumber">&nbsp;</span>
+      </div>
+		 <div class="cellstate">
+        	<span class="label label-primary">Input Device</span>
+			<span class="label label-default" id="inputDevice">&nbsp;</span>
       </div>
       <div class="cellstate">
-      <span class="label label-primary">Menu Type</span>
-	<span class="label label-default" id="menuType">&nbsp;</span>
+			<span class="label label-primary">Menu Type</span>
+			<span class="label label-default" id="menuType">&nbsp;</span>
       </div>
       <div class="cellstate">
-        <span class="label label-primary">Menu Depth</span>
-	<span class="label label-default" id="menuDepth">&nbsp;</span>
+        	<span class="label label-primary">Menu Depth</span>
+			<span class="label label-default" id="menuDepth">&nbsp;</span>
       </div>
-      <div class="cellstate">
-        <span class="label label-primary">IV 3</span>
-	<span class="label label-default">To be implemented</span>
+		<div class="cellstimulusresponse">
+			<span class="label label-primary">Please select</span>
+			<span class="label label-default" id="targetItem">&nbsp;</span>
       </div>
-            <div class="cellstimulusresponse">
-        <span class="label label-primary">Please select</span>
-	<span class="label label-default" id="targetItem">&nbsp;</span>
-      </div>
-        <div class="cellstimulusresponse">
-        <span class="label label-primary">Item selected</span>
-	<span class="label label-default" id="selectedItem">&nbsp;</span>
+	  	<div class="cellstimulusresponse">
+        	<span class="label label-primary">Item selected</span>
+			<span class="label label-default" id="selectedItem">&nbsp;</span>
       </div>            
-        <div class="cellnext">
-      		<button id="nextButton" type="button" class="btn btn-block btn-primary btn-lg" onclick="loadNextTrial(event)">Next</button>
+	  	<div class="cellnext">
+				<button id="nextButton" type="button" class="btn btn-block btn-primary btn-lg" onclick="loadNextTrial(event)">Next</button>
+      </div>      
+		 <div>
+			 <a href="menu.html" target="_blank"><button id="helpButton" type="button" class="btn btn-block btn-primary btn-lg" onclick="more_click()">Help</button></a>
       </div>      
     </div>
 
@@ -62,7 +65,7 @@
     <!-- Marking Menu Scripts -->
     <script src="./js/external/jquery-3.3.1.min.js"></script>
     <script src="./js/external/rxjs.umd.js"></script>
-  	<script src="./js/external/marking-menu.js"></script>
+  	 <script src="./js/external/marking-menu.js"></script>
     
     <!-- Radial Menu Scripts -->
     <script src="./js/external/d3.min.js" ></script>
