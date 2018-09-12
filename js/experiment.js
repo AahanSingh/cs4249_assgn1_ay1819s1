@@ -119,7 +119,7 @@ function nextTrial() {
 		 confirm('The experiment begins. Begin by using your '+trialsData[currentTrial]['Input Device']);
 		 }
 	if ( currentTrial==35 ){ 
-		confirm("Congratulaions. We are halfway through. Take a small break. Close this window to when you're ready. Also change your device to "+trialsData[currentTrial]['Input Device']);
+		confirm("Congratulaions. We are halfway through. Take a small break. Click Ok when you're ready. Also change your device to "+trialsData[currentTrial]['Input Device']);
 	}
 	if (currentTrial <= numTrials) {
 
