@@ -111,8 +111,8 @@ function loadNextTrial(e){
 
 // Move to next trai and record events
 function nextTrial() {
-
-	if (currentTrial==0){
+	console.log(currentTrial)
+	if (currentTrial==1){
 		confirm('The next 4 trials are for your practice. Try to familiarize yourself with the menus.');
 	}
 	if (currentTrial==5){
